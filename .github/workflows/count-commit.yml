@@ -1,0 +1,12 @@
+name: count-commit
+on: [ pull_request ]
+jobs:
+  count-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: check commit count
+        if: ${{ github.event.pull_request.commits > 1 }}
+        run: |
+          echo "::error::this PR has two or more commits."
+          exit 1;
